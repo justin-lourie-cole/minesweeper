@@ -1,41 +1,34 @@
 document.addEventListener("DOMContentLoaded", startGame);
 
 var board = {
-	cells: [
-		{ row: 0, col: 0, isMarked: false, isMine: null, hidden: true },
-		{ row: 0, col: 1, isMarked: false, isMine: null, hidden: true },
-		{ row: 0, col: 2, isMarked: false, isMine: null, hidden: true },
-		{ row: 0, col: 3, isMarked: false, isMine: null, hidden: true },
-		{ row: 1, col: 0, isMarked: false, isMine: null, hidden: true },
-		{ row: 1, col: 1, isMarked: false, isMine: null, hidden: true },
-		{ row: 1, col: 2, isMarked: false, isMine: null, hidden: true },
-		{ row: 1, col: 3, isMarked: false, isMine: null, hidden: true },
-		{ row: 2, col: 0, isMarked: false, isMine: null, hidden: true },
-		{ row: 2, col: 1, isMarked: false, isMine: null, hidden: true },
-		{ row: 2, col: 2, isMarked: false, isMine: null, hidden: true },
-		{ row: 2, col: 3, isMarked: false, isMine: null, hidden: true },
-		{ row: 3, col: 0, isMarked: false, isMine: null, hidden: true },
-		{ row: 3, col: 1, isMarked: false, isMine: null, hidden: true },
-		{ row: 3, col: 2, isMarked: false, isMine: null, hidden: true },
-		{ row: 3, col: 3, isMarked: false, isMine: null, hidden: true },
-	],
+	cells: [],
 };
 
-function randomBoolean() {
-	return Math.random() < 0.5;
-}
+const randomBoolean = () => Math.random() < 0.3;
 
-console.log(randomBoolean());
+const gameBoardSize = (size) => {
+	for (let i = 0; i <= size; i++) {
+		for (let j = 0; j <= size; j++) {
+			board.cells.push({
+				row: i,
+				col: j,
+				isMarked: false,
+				isMine: null,
+				hidden: true,
+			});
+		}
+	}
+};
 
 function startGame() {
-	// Add mines randomly cells on the board
+	gameBoardSize(5);
+	// Add mines randomly to cells on the board
 	board.cells.forEach((cell) => (cell.isMine = randomBoolean()));
 	// Add surroundingMines property to each cell object
 	board.cells.forEach(
 		(cell) => (cell.surroundingMines = countSurroundingMines(cell))
 	),
 		lib.initBoard();
-	// board.cells.forEach((cell) => (cell.isMine = randomBoolean()));
 	// Call checkForWin after left or right mouse click
 	document.addEventListener("click", checkForWin);
 	document.addEventListener("contextmenu", checkForWin);
