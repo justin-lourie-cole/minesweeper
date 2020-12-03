@@ -28,8 +28,9 @@ function randomBoolean() {
 console.log(randomBoolean());
 
 function startGame() {
-	// Add surroundingMines property to each cell object
+	// Add mines randomly cells on the board
 	board.cells.forEach((cell) => (cell.isMine = randomBoolean()));
+	// Add surroundingMines property to each cell object
 	board.cells.forEach(
 		(cell) => (cell.surroundingMines = countSurroundingMines(cell))
 	),
