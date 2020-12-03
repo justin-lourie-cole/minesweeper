@@ -2,31 +2,39 @@ document.addEventListener("DOMContentLoaded", startGame);
 
 var board = {
 	cells: [
-		{ row: 0, col: 0, isMarked: false, isMine: true, hidden: true },
-		{ row: 0, col: 1, isMarked: false, isMine: false, hidden: true },
-		{ row: 0, col: 2, isMarked: false, isMine: true, hidden: true },
-		{ row: 0, col: 3, isMarked: false, isMine: false, hidden: true },
-		{ row: 1, col: 0, isMarked: false, isMine: true, hidden: true },
-		{ row: 1, col: 1, isMarked: false, isMine: false, hidden: true },
-		{ row: 1, col: 2, isMarked: false, isMine: true, hidden: true },
-		{ row: 1, col: 3, isMarked: false, isMine: false, hidden: true },
-		{ row: 2, col: 0, isMarked: false, isMine: true, hidden: true },
-		{ row: 2, col: 1, isMarked: false, isMine: true, hidden: true },
-		{ row: 2, col: 2, isMarked: false, isMine: false, hidden: true },
-		{ row: 2, col: 3, isMarked: false, isMine: true, hidden: true },
-		{ row: 3, col: 0, isMarked: false, isMine: false, hidden: true },
-		{ row: 3, col: 1, isMarked: false, isMine: true, hidden: true },
-		{ row: 3, col: 2, isMarked: false, isMine: false, hidden: true },
-		{ row: 3, col: 3, isMarked: false, isMine: true, hidden: true },
+		{ row: 0, col: 0, isMarked: false, isMine: null, hidden: true },
+		{ row: 0, col: 1, isMarked: false, isMine: null, hidden: true },
+		{ row: 0, col: 2, isMarked: false, isMine: null, hidden: true },
+		{ row: 0, col: 3, isMarked: false, isMine: null, hidden: true },
+		{ row: 1, col: 0, isMarked: false, isMine: null, hidden: true },
+		{ row: 1, col: 1, isMarked: false, isMine: null, hidden: true },
+		{ row: 1, col: 2, isMarked: false, isMine: null, hidden: true },
+		{ row: 1, col: 3, isMarked: false, isMine: null, hidden: true },
+		{ row: 2, col: 0, isMarked: false, isMine: null, hidden: true },
+		{ row: 2, col: 1, isMarked: false, isMine: null, hidden: true },
+		{ row: 2, col: 2, isMarked: false, isMine: null, hidden: true },
+		{ row: 2, col: 3, isMarked: false, isMine: null, hidden: true },
+		{ row: 3, col: 0, isMarked: false, isMine: null, hidden: true },
+		{ row: 3, col: 1, isMarked: false, isMine: null, hidden: true },
+		{ row: 3, col: 2, isMarked: false, isMine: null, hidden: true },
+		{ row: 3, col: 3, isMarked: false, isMine: null, hidden: true },
 	],
 };
 
+function randomBoolean() {
+	return Math.random() < 0.5;
+}
+
+console.log(randomBoolean());
+
 function startGame() {
 	// Add surroundingMines property to each cell object
+	board.cells.forEach((cell) => (cell.isMine = randomBoolean()));
 	board.cells.forEach(
 		(cell) => (cell.surroundingMines = countSurroundingMines(cell))
-	);
-	lib.initBoard();
+	),
+		lib.initBoard();
+	// board.cells.forEach((cell) => (cell.isMine = randomBoolean()));
 	// Call checkForWin after left or right mouse click
 	document.addEventListener("click", checkForWin);
 	document.addEventListener("contextmenu", checkForWin);
