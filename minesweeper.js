@@ -20,6 +20,8 @@ const gameBoardSize = (size) => {
 	}
 };
 
+let golfClap = new Audio("./sounds/Golf Clap.mp3");
+
 function startGame() {
 	gameBoardSize(5);
 	// Add mines randomly to cells on the board
@@ -39,7 +41,7 @@ function checkForWin() {
 	let notMines = board.cells.filter((cell) => !cell.isMine);
 	//If every mine is marked and every other cell is revealed, declare win.
 	mines.every((cell) => cell.isMarked) && notMines.every((cell) => !cell.hidden)
-		? displayMessage("You won!")
+		? (displayMessage("You won!"), golfClap.play())
 		: null;
 }
 
