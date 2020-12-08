@@ -4,16 +4,17 @@ var board = {
 	cells: [],
 };
 
-const randomBoolean = () => Math.random() < 0.3;
+let size = 5;
 
 const gameBoardSize = (size) => {
 	for (let i = 0; i <= size; i++) {
 		for (let j = 0; j <= size; j++) {
+			let randomBoolean = () => Math.random() < 0.3;
 			board.cells.push({
 				row: i,
 				col: j,
 				isMarked: false,
-				isMine: null,
+				isMine: randomBoolean(),
 				hidden: true,
 			});
 		}
@@ -23,9 +24,7 @@ const gameBoardSize = (size) => {
 let golfClap = new Audio("./sounds/Golf Clap.mp3");
 
 function startGame() {
-	gameBoardSize(5);
-	// Add mines randomly to cells on the board
-	board.cells.forEach((cell) => (cell.isMine = randomBoolean()));
+	gameBoardSize(size);
 	// Add surroundingMines property to each cell object
 	board.cells.forEach(
 		(cell) => (cell.surroundingMines = countSurroundingMines(cell))
